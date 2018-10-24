@@ -111,45 +111,51 @@ AWS 본인 계정이 필요하고 이를 통해서 인스턴스를 구동시킬 
 ## AWS에서 인스턴스 구동시키기
 
 
-### Create an AWS account
+### AWS 계정생성
 
-1. Go to Amazon Web Services [https://aws.amazon.com/](https://aws.amazon.com/)
-2. Follow the button to sign up for an account - you will need to agree to Amazon's terms and conditions and provide credit card information.
+1. Amazon Web Services [https://aws.amazon.com/](https://aws.amazon.com/) 웹사이트로 이동한다.
+2. 버튼을 눌러 계정에 가입한다 - 아마존 계약서에 동의해야 하고 신용카드 정보도 넘겨야 한다.
 
 
-#### Sign into AWS and Launch an Instance
-1. Sign into AWS EC2 Dashboard: [https://console.aws.amazon.com/ec2/](https://console.aws.amazon.com/ec2/)
+### AWS 로그인하고 인스턴스 구동시키기
 
-2. Click the 'Launch Instance' button  
+1. AWS 로그인한 후 EC2 대쉬보드 이동: [https://console.aws.amazon.com/ec2/](https://console.aws.amazon.com/ec2/)
+2. 'Launch Instance' 버튼 클릭
 <img src="../fig/logging-onto-cloud_1.png" width="500">
-3. In 'Step 1' you will be asked to choose an Amazon Machine Image (AMI), on the lefthand side, look for 'Community AMIs' and then search for **ami-373ab74d**"Data Carpentry Genomics release 1.0"; select this image  
+3. '1 단계'에서 좌측편에 "Amazon Machine Image (AMI)"를 선택해서, 'Community AMIs'를 찾아 **ami-373ab74d**"Data Carpentry Genomics release 1.0" 이미지를 선택한다.
 <img src="../fig/logging-onto-cloud_2.png" width="500">
-4. For 'Choose and Instance Type' select **t2.medium**; then click 'Review and Launch'  
+4. 'Choose and Instance Type'에서 **t2.medium** 유형을 선택한다; 'Review and Launch'를 클릭한다.
 <img src="../fig/logging-onto-cloud_3.png" width="500">  
 
-    > **Tip:** You can select larger instances, but these will cost more to run. Also for the 'Review Instance Launch' you will get some warning about instance security. We will not go into detail here about security groups. However, you should know that when you launch an instance, you will want to take steps to make sure no one maliciously accesses your instance. For example, never give your security credentials (next step) to another user.
-5. For the 'Review Instance Launch' step, click 'Launch'
-6. You will be asked to Select an existing key pair or create a new key pair. Select 'Proceed without a key pair' and select the acknowledgement you are given. Then click 'Launch Instances'  
+    > **팁:** 좀더 큰 인스턴스를 고르게 되면, 비용이 추가로 더 발생된다.
+    > 'Review Instance Launch' 단계에서 인스턴스 보안에 대한 경고 메시지도 발생된다.
+    > 보안 그룹(security group)에 대한 자세한 내용은 다루지 않는다. 하지만, 인스턴스를 구동시킬 때 반듯이 알아야 되는 사항이다.
+    > 그 누구도 악의적으로 본인 인스턴스에 접근하지 못하도록 적절한 방안을 강구해야 한다. 예를 들어 절대 다른 사람에게 보안 자격증명(security credential)을 전달하지 마라. 
+    > 신용카드를 건네주는 것과 동일하다.
+5. 'Review Instance Launch' 단계 에서 'Launch'를 클릭한다.
+7. 키페어(key pari)를 생성하거나, 기존 키페어를 선택하도록 요청을 받게 된다. 'Proceed without a key pair'을 선택하고 나서 `acknowledgement`를 체크하고 'Launch Instances'을 클릭한다.
 <img src="../fig/logging-onto-cloud_4.png" width="500">
 
-You instance will now be launched. You should follow the links to 'Create billing alerts'.
 
-#### Connect to Amazon Instance
+이제 인스턴스가 구동될 것이다. 'Create billing alerts' 링크를 따라간다.
 
-1. Log into your AWC EC2 Dashboard [https://console.aws.amazon.com/ec2/](https://console.aws.amazon.com/ec2/)
-2. You should see that you have one instance, to proceed the instance state must be 'running' (if you just launched the instance it will take <5 min for the instance to start running)  
+### 아마존 인스턴스 접속 
+
+1. AWS 로그인한 후 EC2 대쉬보드 이동: [https://console.aws.amazon.com/ec2/](https://console.aws.amazon.com/ec2/)
+2. 인스턴스 한개가 보일 것이다. 인스턴스 상태는 'running'으로 보일 것이다. (만약 인스턴스를 방금 구동시켰다면, 3분도 걸리지 않아 인스턴스가 준비된다.)
 <img src="../fig/logging-onto-cloud_5.png" width="500">
-3. At the bottom of the dashboard, you should see a **Public DNS** which will look something like *ec2.12.2.45.678.compute-1.amazonaws.com*. Copy that address (you may wish make a note of it as you will need this each time you connect.)  
+3. 대쉬보드 하단에 *ec2.12.2.45.678.compute-1.amazonaws.com*와 같이 보이는 **Public DNS**가 보일 것이다. 주소를 복사한다 (인스턴스에 접속할 때마다 필요할 수 있기 때문에 적어두는 것도 좋을 수 있다.)
 <img src="../fig/logging-onto-cloud_6.png" width="500">
-4. Open the terminal application on your Mac and use 'ssh' to connect. Your command will be:
+4. 터미널 응용프로그램을 열고 `ssh` 명령어를 사용해서 접속한다. 접속 명령어는 다음과 같다:
 
 ```bash
 $ ssh dcuser@your.amazon.dns
 ```
-5. Your computer will be unable to verify the authenticity of the host; type **yes** to continue connecting
-6. Then enter the password for this computer: 'data4Carp'
+5. 처음에는 접속하는 컴퓨터에서 호스트 컴퓨터가 진짜인지 확인할 수 없다; **yes**를 입력해서 접속작업을 계속이어 나간다.
+6. 그리고 나서 컴퓨터 패스워드를 입력한다:'data4Carp'
 
-You should now be connected to your personal instance. You can confirm this with the following commands; ``whoami``,``pwd``,``ls``, which should yield the following results:
+이제 AWS EC2 개인 인스턴스에 접속이 되었다.
+다음 명령어를 사용해서 접속된 사실을 확인할 수 있다; ``whoami``,``pwd``,``ls`` 명령어를 실행시키면 다음과 같은 결과를 출력한다.
 
 ```bash
 Last login: Thu Jul 30 13:21:08 2015 from 8.sub-70-197-200.myvzw.com
@@ -163,23 +169,27 @@ Desktop		FastQC	   R
 $
 ```
 
-#**Very Important Warning - Avoid Unwanted Charges**
-Please remember, for as long as this instance is running, you will be charged for your usage. You can see an estimate of the current charge from your AWS EC2 dashboard by clicking your name (Account name) on the upper right of the dashboard and selecting 'Billing & Cost Management'. **DO NOT FORGET TO TERMINATE YOUR INSTANCE WHEN YOU ARE DONE**
+#**매우 중요한 경고 - 원치않게 부과된 요금을 피하는 법**
+인스턴스가 실행되는 동안, 사용에 대해 요금이 부과된다.
+AWS EC2 대쉬보드의 우측 상단 계정명을 클릭하고 'Billing & Cost Management' 메뉴를 선택하면 현재 부과된 요금을 확인할 수 있다.
+**작업이 끝나게 되면 인스턴스를 파기(terminate)시키는 것을 잊지말자.**
 
-### Terminating your instance
+## 인스턴스 파기(terminate)
 
-When you are finished with your instance, you must terminate. Follow the following steps.
+인스턴스로 작업이 완료되면, 파기시켜야 한다. 다음 단계를 따라 인스턴스를 파기한다.
 
-1. Sign into AWS and go to the EC2 Dashboard: [https://console.aws.amazon.com/ec2/](https://console.aws.amazon.com/ec2/)
-2. Under 'Resources' select 'Running Instances'
-3. Select the instance you wish to terminate, then click 'Actions'  
+1. AWS 로그인한 후 EC2 대쉬보드 이동: [https://console.aws.amazon.com/ec2/](https://console.aws.amazon.com/ec2/)
+2. 'Resources' 아래 'Running Instances'을 선택한다.
+3. 파기할 인스턴스를 선택하고 나서, 'Actions' 버튼을 클릭한다.
 <img src="../fig/logging-onto-cloud_7.png" width="500">
-4. Under 'Instance State' select terminate.
+4. 'Instance State' 아래 파기(terminate)를 선택한다.
 
-    > **Warning:** This will delete any data on this instance, so you must move any data you wish to save off the instance.
+    > **경고:** 인스턴스를 파기하게 되면 모든 데이터도 함께 삭제된다. 파기하기 전에 데이터를 다른 곳을 이동시켜야 된다.
 
-    >  **Tip:** You can use iCommands to move data between your computer, a cloud instance, and the iPlant Data Store. iCommands is installed on the Data Carpentry Amazon AMI. You can download and see documentation for iCommands [here](https://pods.iplantcollaborative.org/wiki/display/DS/Using+iCommands) - there is also some documentation on setting up iCommands in the Atmosphere section below
-5. Select 'Yes, Terminate' to terminate the instance.
+    > **팁:** `iCommands`를 사용해서 컴퓨터간, 클라우드 인스턴스, iPlant 데이터 스토어에 저장된 데이터를 이동시킬 수 있다.
+    > `iCommands`는 Data Carpentry Amazon AMI에 설치되어 있다.
+    > [`iCommands` 도움말](https://pods.iplantcollaborative.org/wiki/display/DS/Using+iCommands)을 참조할 수도 있다.
+5. 'Yes, Terminate'를 선택해서 인스턴스를 파기한다.
 
 </div>
 
