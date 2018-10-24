@@ -1,56 +1,73 @@
 ---
-title: "Why of cloud computing"
+title: "왜 클라우드 컴퓨팅인가?"
 teaching: 5
 exercises: 0
 questions:
-- What is cloud computing?
-- What are the tradeoffs of cloud computing?
+- "도대체 클라우드 컴퓨팅은 무엇인가?"
+- "클라우드 컴퓨팅의 장담점(tradeoffs)은 무엇인가?"
 objectives:
-- Understand benefits of working on a remote computer system
+- "원격 컴퓨터 시스템에서 작업하는 좋은 점을 이해한다."
 keypoints:
-- Cloud computing increases processing speed and efficiency
+- "클라우드 컴퓨팅은 처리속도와 효율을 향상시켜준다."
 ---
 
-There are a number of reasons why accessing a remote machine is invaluable to any scientists working with large datasets. In the early history of computing, working on a remote machine was standard practice - computers were bulky and expensive. Today we work on laptops or desktops that are more powerful than the sum of the world's computing capacity 20 years ago, but many analyses (especially in genomics) are too large to run on these laptops/desktops. This analyses require larger machines, often several of them linked together, where remote access is the only practical solution.
-
-In recent years, computational power has become a commodity and entire companies have been built around a business model that allows you to "rent" one or more linked computers for as long as you require, at relatively low cost. This is the basic principle behind the **cloud**. You define your computational requirements and off you go.
-
-You'll know you need to start working on the cloud when:
-
-- Your computer does not have enough resources to run the desired analysis (memory, processors, disk space, network bandwidth).
-- Your computer is taking hours or days to get through an analysis.
-- You cannot install software on your computer (application does not have support for your operating system, conflicts with other existing applications, etc.)
-- You cannot afford the infrastructure (hardware, bandwidth, power supply, administrator) required to acquire and maintain sufficiently large computers for your analysis.
-
-The cloud is a part of our everyday life (e.g. using Amazon, Google, Netflix, or an ATM involves remote computing). The topic is fascinating, but this lesson says '5 minutes or less' so let's get connected.
+원격 컴퓨터에 접속하는 것이 왜 빅데이터를 다루는 과학자에게 정말 소중한지에 대한 여러가지 이유가 있다.
+초기 컴퓨팅 역사에서 원격 컴퓨터로 작업하는 것이 관행이였다 - 컴퓨터가 컸을 뿐만 아니라 비쌌다. 
+오늘날은 20년전에 전세계 컴퓨팅 역량을 총동원한 것보다 더 강력한 노트북과 데스크탑 PC로 작업하고 있다.
+하지만, 대다수 분석(특히, 유전체학)이 노트북이나 개인용 PC에서 실행하기에는 너무나도 커서 작업이 힘들다.
+이러한 분석에는 서로 네트워크로 연결된 컴퓨터가 많이 필요한데, 이런 경우 원격 접속이 거의 유일한 해법이 된다.
 
 
-### Choosing a cloud platform
+최근에, 컴퓨팅 파워가 보통 상품이 되었다.
+상대적으로 저렴한 비용으로 필요한 경우 컴퓨터를 빌려 사용하는 사업모델을 중심으로 회사 전체가 설립되기도 한다.
+이것이 **클라우드(cloud)** 이면의 기본 원리가 된다.
+컴퓨팅 요건을 정의하고 사용하지 않아도 된다.
 
-The most important thing about the **cloud** is choice - instead of purchasing a physical computer, you can obtain on-demand computing at almost any scale. This power comes with advantages and disadvantages:
+다음 경우라면, 클라우드에서 작업을 심각히 고려할 필요가 있다:
 
-**Advantages of Cloud Computing**
+- 본인 컴퓨터로 기대하는 수준의 분석을 실행에 옮기기에 충분한 자원을 갖추지 못한 경우 (메모리, CPU, 디스크, 네트워크 대역폭).
+- 본인 컴퓨터로 분석을 마치는데 몇시간 혹은 몇일이 소요되는 경우.
+- 본인 컴퓨터에 소프트웨어를 설치할 수 없는 경우(본인 컴퓨터 운영체제에 응용프로그램을 설치할 수 없거나, 기존 응용프로그램과 충돌이 나는 경우 등)
+- 분석을 위한 대용량 컴퓨터를 얻을 수 없거나, 유지보수할 인프라(하드웨어, 대역폭, 관리자, 전력공급)가 갖춰지지 못한 경우.
 
-* Access large amounts of computing power on demand
-* Full administrative rights - install anything
-* Use pre-configured "images" (machine snapshot where operating system and software are already installed)
-* Your local operating system doesn't matter - once you connect to the cloud you can run any UNIX software
-
-**Disadvantages of Cloud Computing**
-
-* It takes time to upload data and download results
-* Cloud computing costs money (you must keep track of your costs)
-* If you need help, you may not have a local system administrator
-* Images may be poorly documented (you may not be clear on what is installed, or how to use it)
-* Form of payment (credit card)*
-* Understanding of Amazon's billing and payment (See: [Getting started with AWS Billing and Cost Management](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-getting-started.html))
-
-\* You can use some of Amazon Web Services (AWS) for free, or see if you qualify for an AWS Grant (See: [https://aws.amazon.com/grants/](https://aws.amazon.com/grants/) ) if you are using AWS for education. The free level of service *will not* be sufficient for working with the amount of data we are using for our lessons.
+클라우드는 일상의 일부가 되었다 (예를 들어, 아마존, 구글, 넷플릭스, ATM 사용은 원격 컴퓨터를 끼고 있다).
+학습 주제가 멋져보이지만, 실제로 5분 혹은 그 이하 시간이면 족하다. 이제 클라우드에 접속해 보자.
 
 
-### Cloud platform choices
+### 클라우드 플랫폼 선택
 
-There are several cloud providers to choose from. Some scientific clouds may either be free or allocate resources competitively. Commercial clouds can be very powerful, but choice can be overwhelming. We will come back to this at the end of the lesson, but for right now, we're going to continue using the Amazon Web Services as our resource.
+The most important thing about the **cloud** is choice - 
+instead of purchasing a physical computer, you can obtain on-demand computing at almost any scale. 
+This power comes with advantages and disadvantages:
 
-Learn more about cloud computing in bioinformatics<br>
+**클라우드**에서 가장 중요한 것이 선택이다 - 
+물리적 컴퓨터를 구매하는 대신에, 거의 원하대로 온디맨드(on-demand) 주문형 컴퓨팅 자원을 손에 넣을 수 있다.
+이러한 강력함은 장점과 함께 단점도 수반한다:
+
+**클라우드 컴퓨팅 장점**
+
+* 주문하면 대용량 컴퓨팅 파워에 접근할 수 있게 된다.
+* 모든 관리자 권한 - 무엇이든 설치할 수 있다.
+* 사전에 환경설정이 마무리된 이미지(image) 사용: 이미지는 컴퓨터 스탭샷으로 운영체제와 소프트웨어가 미리 설치되어 준비된 상태로 되어 있음.
+* 본인 로컬 운영체제는 문제가 되지 않음 - 클라우드에 접속하게 되면, 어떤 유닉스 소프트웨어도 실행할 수 있음.
+
+**클라우드 컴퓨팅 단점**
+
+* 데이터를 업로드하고 작업결과를 내려받는데 시간이 소요됨.
+* 클라우드 컴퓨팅을 사용하게 되면 비용이 발생됨(비용을 항시 추적하고 있어야함)
+* 도움이 필요한 경우, 도움을 줄 수 있는 관리자가 없을 수도 있음.
+* 이미지에 대한 문서가 부실함 (즉, 어떤 소프트웨어가 설치되어 있는지, 어떻게 사용하는지 명확하지 않음.)
+* 결재수단(신용카드)
+* 아마존 청구와 지불(Amazon's billing and payment) 이해 (참조: [Getting started with AWS Billing and Cost Management](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-getting-started.html)) 
+
+\* Amazon Web Services (AWS) 일부를 무료로 사용할 수 있다. 하지만, 무료로 제공되는 서비스로 이번 학습에서 사용되는 데이터를 작업하는데 충분하지 *않을 수도* 있음.
+
+### 클라우드 플랫폼 선택지
+
+클라우드 서비스를 제공하는 업체가 몇개 존재한다.
+일부 과학 클라우드 서비스는 무료거나 자원을 뒤지지 않는 수준으로 제공하기도 한다. 
+상업용 클라우드는 매우 강력하지만, 선택사항이 너무 많아 당황스러울 수 있다.
+클라우드 플랫폼 선택에 대해서 학습 말미에 다시 다룰 것이다. 현재 상황에서는 AWS를 클라우드 컴퓨팅 자원으로 상정하고 학습을 계속해 나간다.
+
+Bioinformatics 분야에서 클라우드 컴퓨팅에 관한 사항은 다음을 참조한다 <br>
 Fusaro VA, Patil P, Gafni E, Wall DP, Tonellato PJ (2011) **Biomedical Cloud Computing With Amazon Web Services**. PLoS Comput Biol 7(8): e1002147. doi: 10.1371/journal.pcbi.1002147

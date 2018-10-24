@@ -1,15 +1,15 @@
 ---
-title: "Logging onto Cloud"
+title: "클라우드 로그인"
 teaching: 5
 exercises: 5
 questions:
-- How do I connect to an AWS instance?
+- "AWS 인스턴스에 어떻게 접속할 수 있나요?"
 objectives:
-- Log onto to a running instance
-- Log off from a running instance
+- "동작중인 인스턴스에 로그인한다."
+- "동작중인 인스턴스에 로그아웃한다."
 keypoints:
-- You can use one set of log-in credentials for many instances
-- Logging off an instance is not the same as turning off an instance
+- "많은 인스턴스에서 사용할 수 있는 로그인 자격증명서(log-in credentials) 한벌을 사용할 수 있다."
+- "인스턴스에서 로그 아웃하는 것은 인스턴스를 끄는 것은 동일하지 않다."
 ---
 
 <script language="javascript" type="text/javascript">
