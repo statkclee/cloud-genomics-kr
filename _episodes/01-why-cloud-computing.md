@@ -36,10 +36,6 @@ keypoints:
 
 ### 클라우드 플랫폼 선택
 
-The most important thing about the **cloud** is choice - 
-instead of purchasing a physical computer, you can obtain on-demand computing at almost any scale. 
-This power comes with advantages and disadvantages:
-
 **클라우드**에서 가장 중요한 것이 선택이다 - 
 물리적 컴퓨터를 구매하는 대신에, 거의 원하대로 온디맨드(on-demand) 주문형 컴퓨팅 자원을 손에 넣을 수 있다.
 이러한 강력함은 장점과 함께 단점도 수반한다:

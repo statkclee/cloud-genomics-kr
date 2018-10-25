@@ -1,31 +1,32 @@
 ---
-title: "Fine tuning your Cloud Setup"
+title: "클라우드 설정 미세 조정하기"
 teaching: 5
 exercises: 10
 questions:
-- Is my remote computer correctly configured?
-- How do I keep my processing going when I leave?
+- "본인 원격 컴퓨터가 제대로 환경이 설정되어 있는가?"
+- "내가 자리를 비운 상태에서도 작업을 계속 수행시킬 방법은 무엇인가?"
 objectives:
-- Check the available resources and file system on your remote machine
-- Keep background processes working in the cloud with `tmux`
+- "원격 컴퓨터의 가용 자원과 파일 시스템을 점검한다."
+- "`tmux`를 사용해서 클라우드에서 백그라운드로 작업을 계속해서 돌린다."
 keypoints:
-- Always check a new instance to verify it started correctly
-- Using a program like `tmux` can keep your work going even if your internet connection is bad
+- "항상 신규 인스턴스가 제대로 준비되었는지 점검한다."
+- "`tmux`같은 프로그램을 사용해서 인터넷 연결이 좋지 않을 때도 작업을 계속해서 돌리게 한다."
 ---
 
-# Is this the right cloud?
+# 원하는 클라우스 서비스인가요?
 
-Once you're connected to your new remote instance, it's a good idea to double check that
-the settings are what you wanted, and that everything is working smoothly before you start
-your project.
-
-For this workshop, your instructor did all the verification before the workshop
-even started, but this is an important skill for when you start running your own instances.
+신규 생성된 원격 인스턴스에 접속하게 되면, 설정이 원하는 바대로 되었는지,
+프로젝트를 시작하기 전에 모든 것이 제대로 동작하는지 두번 검정한다.
 
 
-## Verifying your connection
+이번 워크샵은 시작되기 전에 강사가 모든 확인절차를 거쳐서 별도 점검이 필요없다.
+하지만, 본인 스스로 인스턴스를 생성시키는 경우 중요한 기술적 자산이 된다.
 
-When you connect, it is typical to receive a welcome screen. The Data Carpentry Amazon instances display this message upon connecting:
+
+## 연결상태 검증하기 
+
+인스턴스에 연결되면, 환영 메시지가 스크린에 띄워진다.
+데이터 카펜트리 아마존 인스턴스에 접속되면 다음 메시지가 화면에 보이게 된다:
 
 ~~~
 Welcome to Ubuntu 14.04.3 LTS (GNU/Linux 3.13.0-48-generic x86_64)
@@ -53,18 +54,19 @@ Last login: Sun Jan 24 21:38:36 2016 from
 ~~~
 {: .output}
 
-You should also have a blinking cursor awaiting your command
+명령을 기다리며 깜빡이는 커서도 보이게 된다.
 
 ~~~
 $
 ~~~
 {: .bash}
 
-## Verifying your environment
+## 환경 점검하기
 
-Now that we have connected here are a few commands that tell you a little about the machine you have connected to:
+인스턴스에 연결이 되었기 때문에, 명령어 몇개를 던져 연결된 컴퓨터에 대해 살펴보자:
 
-- `whoami` - shows your username on computer you have connected to:
+
+- `whoami`: 연결된 컴퓨터의 사용자명(`username`)을 보여준다.
 
   ~~~
   dcuser@ip-172-31-62-209 ~ $ whoami
@@ -72,7 +74,7 @@ Now that we have connected here are a few commands that tell you a little about 
   ~~~
   {: .output}
 
-- `df -h` - shows space on hard drive
+- `df -h`: 하드 디스크의 남은 공간을 보여준다.
 
   ~~~
   dcuser@ip-172-31-62-209 ~ $ df -h
@@ -87,9 +89,11 @@ Now that we have connected here are a few commands that tell you a little about 
   ~~~
   {: .output}
 
-  Under the column 'Mounted on row' that has `/` as the value shows the value for the main disk
+상기 `'Mounted on` 칼럼 아래 `/`인 행이 있다. 즉, `/dev/xvda1       99G   48G   47G  51% /`.
+하드디스크에 대한 값을 저장용량을 나타내고 있다.
 
-- `cat /proc/cpuinfo` - shows detail information on how many processors (CPUs) the machine has
+
+- `cat /proc/cpuinfo`: 컴퓨터가 보유하고 있는 중앙처리장치(CPU)에 대한 자세한 정보를 나타내고 있다.
 
   ~~~
   dcuser@ip-172-31-62-209 ~ $ cat /proc/cpuinfo
@@ -147,7 +151,7 @@ Now that we have connected here are a few commands that tell you a little about 
   ~~~
   {: .output}
 
-- `tree -L 1` - shows a tree view of the file system 1 level below your current location.
+- `tree -L 1`: 현재 위치(디렉토리)에서 1 단계 아래 파일시스템의 나무구조를 보여주고 있다.
 
   ~~~
   dcuser@ip-172-31-62-209 ~ $ tree -L 1
@@ -164,26 +168,35 @@ Now that we have connected here are a few commands that tell you a little about 
   ~~~
   {: .output}
 
-## Staying Connected to the Cloud
+## 클라우드에 접속을 유지한 상태로 유지하기.
 
-Depending on how you connect to the cloud, you may have processes and jobs that are
-running, and will need to continue running for some time. If you are connecting to your
-cloud desktop via VNC, jobs you start will continue to run. If you are connecting via SSH,
-if you end the SSH connection (e.g. you exit your SSH session, you lose your connection
-to the internet, you close your laptop, etc.), jobs that are still running when you
-disconnect will be killed. There are a few ways to keep cloud processes running in the background.
-Many times when we refer to a background process we are talking about what is
-[described at this tutorial](http://www.cyberciti.biz/faq/linux-command-line-run-in-background/) -
-running a command and returning to shell prompt. Here we describe a program that will
-allow us to run our entire shell and keep that process running even if we disconnect: `tmux`. If you don't have `tmux` on your system, you should still be able to use `screen`. This is another program that has mostly the same capabilities as `tmux`. It's a lot older, though, so can be more clunky to use; however, it is likely to be available on any cloud system you encounter.
 
-In both `tmux` and `screen`, you open a 'session'. A 'session' can be thought of as a window for `tmux` or `screen`, you might open an terminal to do one thing on the a computer and then open a new terminal to work on another task at the command line. 
+클라우드 시스템에 연결된 방법에 따라 차이가 날 수 있지만, 한동안 작업을 계속 실행해야 하거나 계속해서 돌고 있는 
+프로세스(process)와 작업(job)이 있을 수 있다.
+VNC를 경유해서 클라우드를 GUI 데스크톱 형태한 연결된 경우, 시작된 작업은 계속 실행될 것이다.
+SSH를 통해 연결된 경우, SSH 접속을 종료(예를 들어, SSH 세션을 끝내거나, 인터넷 연결이 끊어지거나,
+노트북을 종료시키는 등등)시키면 접속이 끊어지게 될 때 돌고 있던 작업은 프로세스는 중지(killed)된다.
+백그라운드로 클라우드 프로세스를 계속 실행시키는 방법이 몇가지 존재한다.
+백그라운드 프로세스를 지칭할 때, 
+[Linux: Start Command In Background](http://www.cyberciti.biz/faq/linux-command-line-run-in-background/) 웹사이트에 
+기술된 내용(명령어를 실행하고 쉘 프롬프트로 되돌아 감)을 지칭한다.
+이번에 기술하는 프로그램은 `tmux`로 연결이 끊어지더라도 쉘 전체를 실행시키면서 프로세스 실행을 유지시켜주는 역할을 수행한다.
+현재 시스템에 `tmux`가 없더라도, `screen`을 사용할 수는 있다.
+`screen`은 `tmux`와 같은 기능을 갖춘 또다른 프로그램이다.
+하지만, 매우 오래되서 사용하기가 더 투박하다; 어떤 클라우드 시스템에서도 이용가능하다는 것은 좋은 점이다.
 
-As you work, an open session will stay active until you close this session. Even if you disconnect from your machine, the jobs you start in this session will run till completion.
 
-### Starting and attaching to a session
+`tmux`와 `screen` 프로그램 모두 '세션(session)'을 열어 사용한다.
+'세션(session)'은 `tmux`와 `screen`에서 윈도우 화면으로 간주하면 좋다.
+컴퓨터에서 작업을 하나 수행할 때 터미널을 열고, 또 다른 작업을 수행하고자 할때 
+터미널 세션을 열어 작업하게 된다.
 
-You can start a session and give it a descriptive name:
+세션을 닫을 때까지 활동중 액티브 상태가 유지된다.
+설사 컴퓨터 연결이 끊어지더라도, 해당 세션에서 시작된 작업(`job`)은 완료될 때까지 계속 돌아가게 된다.
+
+### 세션 시작하고 세션에 연결하기
+
+세션을 시작하고 나서 세션에 명칭을 부여하는 것도 가능하다:
 
 - `tmux`
 
@@ -199,18 +212,22 @@ You can start a session and give it a descriptive name:
   ~~~
   {: .bash}
 
-This creates a session with the name `session_name` which will stay active until you close it.
+상기 명령어를 실행하게 되면, `session_name`을 갖는 세션이 생성된다.
+해당 세션을 닫을 때까지 활동중(active) 상태로 유지된다.
 
-### Detach session (process keeps running in background)
+### 세션에서 분리 (프로세스는 백그라운드로 계속 실행됨)
 
-You can detach from a session by pressing on your keyboard:
+키보드에서 다음을 누르게 되면 세션에서 분리된다:
 
-- `tmux`: `control + b` followed by `d` (for detach)
-- `screen`: `control + a` followed by `d` (for detach)
 
-#### Seeing active sessions
+- `tmux`: `control + b` 다음에 `d` (세션 분리 목적)
+- `screen`: `control + a` 다음에 `d` (세션 분리 목적)
 
-If you disconnect from your session, or from your ssh into a machine, you will need to reconnect to an existing session. You can see a list of existing sessions:
+#### 활동중인 액티브 세션 확인하기
+
+현재 세션 혹은 `ssh`로 접속된 컴퓨터와 연결이 끊어지게 되면,
+기존 세션에 재접속이 필요한 경우가 있다.
+열려있는 기존 세션을 다음 명령어를 통해 확인할 수 있다:
 
 - `tmux`
 
@@ -226,9 +243,9 @@ If you disconnect from your session, or from your ssh into a machine, you will n
   ~~~
   {: .bash}
 
-#### Connecting to a session
+#### 세션에 연결하기
 
-To connect to an existing session:
+기존 세션에 다음 명령어를 통해 다시 연결시킬 수 있다:
 
 - `tmux`
 
@@ -246,11 +263,11 @@ To connect to an existing session:
   ~~~
   {: .bash}
 
-  The `-r` option = 'resume  a detached screen session'
+  `-r` 선택옵션: 분리된 screen 세션을 다시 시작
 
-#### Switch sessions
+#### 세션 전환
 
-You can switch between sessions:
+다음 명령어로 세션을 전환시킬 수 있다:
 
 - `tmux`
 
@@ -259,9 +276,9 @@ You can switch between sessions:
   ~~~
   {: .bash}
 
-#### Kill a session
+#### 세션 종료 (Kill a session)
 
-You can end sessions:
+다음 명령어소 세션을 종료시킬 수 있다:
 
 - `tmux`
 
@@ -279,13 +296,17 @@ You can end sessions:
   {: .bash}
 
 
-### Installing additional software
+### 소프트웨어 추가로 설치하기
 
-By default `tmux` is not installed in most cloud Linux instances. However you can install new software packages using Package Managers like YUM (for Red Hat and Centos instances) or APT (for Debian or Ubuntu instances). We will explore how to install `tmux` using APT (Advanced Package Tool).
+`tmux` 소프트웨어는 기본 디폴트로 거의 모든 리눅스 인스턴스에 미설치 상태다.
+하지만, 리눅스 배포판 팩키지 관리자 도구를 사용해서 
+쉽게 신규 소프트웨어를 설치할 수 있다: APT (데비안 혹은 우분투), YUM (레드햇과 센토스).
+우분투 APT (Advanced Package Tool) 팩키지 관리자를 사용하여 `tmux` 소프트웨어 설치 방법을 살펴보자.
 
-####  Update APT
+#### APT 최신 상태로 갱신하기
 
-Before installing or upgrading any system packages, you should always update the local APT cache:
+어떤 소프트웨어를 설치하거나 최신 상태로 갱신하기 전에, 항상 로컬 APT 캐쉬를 최신 상태로 유지시켜야 한다:
+
 
 ~~~
 $ sudo apt-get update
@@ -297,9 +318,12 @@ Reading package lists... Done
 ~~~
 {: .bash}
 
-#### Search for APT packages using including software
+#### APT 팩키지를 검색하기
 
-Most common software tools will have a package named the same, but this is not always the case. If you know the name of the program you wish to install, but are not sure of the package name, you can use the `apt` program to search packages:
+흔한 소프트웨어 도구는 팩키지명이 동일한 경우가 많지만, 항상 그런 것은 아니다.
+설치하고자 하는 프로그램 명칭을 알고는 있는데 팩키지 명칭을 확신하지 못하는 경우,
+`apt` 프로그램을 사용해서 팩키지를 검색한다:
+
 
 ~~~
 $ sudo apt search tmux
@@ -323,11 +347,11 @@ $
 ~~~
 {: .bash}
 
-There is a plain `tmux` package, so we will use that to install.
+명백한 `tmux` 팩키지가 존재하기 때문에 이를 설치한다.
 
-#### Install packages using APT
+#### APT를 사용해서 팩키지 설치
 
-Once you know the package name, you can install it using `apt-get install`:
+팩키지 명칭을 알고 나면, `apt-get install` 명령어를 사용해서 `tmux` 팩키지를 설치한다:
 
 ~~~
 $ sudo apt-get install tmux
@@ -355,4 +379,4 @@ Processing triggers for libc-bin (2.23-0ubuntu10) ...
 ~~~
 {: .bash}
 
-When this has completed, `tmux` will now be available for use on the instance.
+설치가 완료되면, EC2 인스턴스에 `tmux` 소프트웨어를 사용할 준비가 되었다.
