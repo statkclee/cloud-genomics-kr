@@ -1,88 +1,101 @@
 ---
-title: "Which Cloud for my data?"
+title: "내 작업데이터에 적합한 클라우드는?"
 teaching: 10
 exercises: 20
 questions:
-- What cloud resources are available?
-- How do I choose my resources?
+- 어떤 클라우드 자원을 이용할 수 있는가?
+- 클라우드 자원을 어떻게 선택하는가?
 objectives:
-- Describe the advantages and disadvantages of various cloud computing platforms.
-- Determine what resources a project will require
-- Match required resources to computing platforms
+- 다양한 클라우드 컴퓨팅 플랫폼별로 장단점을 기술한다.
+- 프로젝트에서 요구하는 자원을 판단한다.
+- 필요한 자원과 컴퓨팅 플랫폼을 매칭한다.
 keypoints:
-- Choose your cloud resource to best fit your budget and flexibility requirements
+- 예산(budget)과 유연성(flexibility) 요구사항을 가장 잘 맞추는 클라우드 자원을 선택한다.
 ---
 
 
-## Cloud platform choices
+## 클라우드 플랫폼 선정
 
-There are several cloud providers to choose from. Some scientific clouds may either be free or allocate resources competitively. Commercial clouds can be very powerful, but choice can be overwhelming. We will cover as much as we can, but you will ultimately need to learn things not covered here so see the documentation below:
+선택할 수 있는 클라우드 서비스 제공업체가 몇개 있다.
+일부 과학 클라우드는 무료거나 자원을 경쟁적으로 할당해준다.
+상업용 클라우드는 매우 강력하지만, 선택할 사항이 너무나 많다.
+가능하면 많은 것을 다루려고 하지만, 궁긍적으로 여기서 다뤄지 못한 것을 별도로 학습할 필요가 있다.
+따라서 아래 문서를 참고바란다:
 
-The major tradeoff between platforms is between flexibility and cost. Generally speaking,
-services that allow you more flexibility and autonomy, will be more expensive than
-highly managed services.
+플랫폼간에 주된 절충(tradeoff)점은 유연성(flexibility)과 비용(cost)이다.
+일반적으로 보면, 더 많은 유연성과 자율성을 허용하는 클라우드 서비스는 매우 잘 관리되는 서비스보다 
+더 비싸다.
 
-### University/Corporate Computing Clusters
 
-Many universities and businesses operate their own computing clusters that are available to students and staff
-at low or no cost. If your employer maintains a computing cluster, this will almost always be the least
-expensive option.
+### 대학/기업 컴퓨팅 클러스터
 
-However, most HPCCs (High Performance Computing Clusters) put limits on:
- - the number of processors a user can utilize at once
- - the amount of disk storage per user
- - the amount of time a single process can run
- - what programs can be installed, and by whom
- - who can have accounts and access data
+많은 대학과 기업체는 무료 혹은 매우 낮은 가격으로 학생과 직원에게 접근할 수 있는 
+컴퓨팅 클러스터를 운영하고 있다.
+본인이 속한 조직에서 컴퓨팅 클러스터를 유지관리하고 있다면, 거의 항상 가장 저렴한 클라우드 서비스 선택지에 포함된다.
 
- HPCCs are also a shared resource, so even when you have access, your programs are unlikely to run
- immediately. Most HPCCs run some kind of scheduler, that you submit your processing jobs to, and
- it runs them as resources become available. In order to submit a job, you generally will need to
- know not only what program you want to run, but with how many processors and for how long.
- While interacting with the scheduler is no more difficult than interacting with the shell,
- it will have its own set of commands and syntax that you'll need to learn; and these vary
- widely among HPCCs.
 
- There are also many upsides to using an HPCC. As previously mentioned, they're generally the least
- expensive option, but they often come with more perks. For instance, many HPCCs offer free or low-cost
- training, storage space, back-up options, and technical support. If your HPCC has a scheduler, you
- can also queue up many sequential jobs all at once, and you don't have to worry about racking up
- fees on instances that are sitting idle. It's often also much easier to pay for HPCC use than to
- pay for Amazon using grant money, however universities are getting better about AWS payments.
+하지만, HPCC (High Performance Computing Clusters) 대부분 다음과 같은 한계를 두는 것도 사실이다:
+ - 한번에 사용자가 활용할 수 있는 프로세스 갯수
+ - 사용자당 할당된 디스크 저장용량 
+ - 단일 프로세스가 실행되는 시간의 총량
+ - 설치될 수 있는 프로그램과 설치할 수 있는 권한을 갖는 관리자
+ - 계정을 가질 수 있는 사람과 데이터에 접근할 수 있는 사람
 
-### Open Science Clouds
+
+HPCC도 공유 자원이라, 컴퓨팅 자원에 접근한다고 해서 프로그램이 즉시 실행되지 않을 수도 있다.
+HPCC는 일종의 스케쥴러를 두고 있어, 처리 작업(processing jobs)을 넣게 되면 HPCC가 
+해당 자원이 이용가능해질 때야 비로서 실행이 된다.
+처리작업을 넣으려면, 실행시킬 프로그램 뿐만 아니라 프로세스 갯수와 실행될 시간도 함께 알아야 된다.
+스케쥴러와 상호작용하는 것은 쉘(shell)로 상호작용하는 것보다 더 어렵지는 않다.
+스케쥴러 자체 명령어 집합과 구문이 있어 추가로 학습하면 된다; HPCC마다 꽤 다양하다.
+
+
+ HPCC를 사용하는데 많은 문제가 있다.
+앞서 언급했듯이, 통상 가장 저렴한 클라우드 서비스 선택지이기도 하지만, 좋은 점도 많다.
+예를 들어, HPCC 대다수는 무료 혹은 저렴한 교육, 저장공간, 백업 및 기술지원을 제공한다.
+HPCC가 스케쥴링 기능을 제공하는 경우, 한번에 순차작업 다수를 큐에 걸어놓으면 된다.
+그렇다고 놀고 있는 인스턴스로 인해 비용이 과도하게 징수될 걱정을 할 필요는 없다.
+정부 보조금을 사용할 때 아마존에 지불하는 것보다 HPCC 사용료를 지불하는 것이 더 쉽다.
+하지만, 대학에서 점점 AWS 사용료 지불 환경이 나아지고 있다.
+
+### 공개 과학 클라우드
 
 #### [XSEDE](https://www.xsede.org/)
 
-The Extreme Science and Engineering Discovery Environment (XSEDE) is an NSF funded HPCC, so
-it is open to any US-based researcher, and shares most of the same benefits and drawbacks
-of a university or corporate HPCC. If your university or corporation doesn't have it's
-own HPCC resources, XSEDE will likely be your cheapest option.
+XSEDE(Extreme Science and Engineering Discovery Environment)는 NSF 자금으로 운영되는 HPCC다.
+따라서, 미국에서 활동하는 연구자 누구에게나 열려있고, 대학 혹은 기업 HPCC의 장단점을 거의 공유한다.
+본인 대학 혹은 기업에서 자체 HPCC 자원을 갖추지 못한 경우, XSEDE가 아마도 가장 저렴한 클라우드 선택지가 될 듯 싶다.
 
-Although any US-based researcher can use XSEDE, first [they'll need an account](https://portal.xsede.org/#/guest).
-Like the HPCC options described above, XSEDE uses a scheduler to start jobs, and puts limits on
-how many resources any one user can utilize at once.
+미국에서 활동하는 연구자 누구나 XSEDE를 사용할 수 있지만, 먼저 [사용자 계정](https://portal.xsede.org/#/guest)이 필요하다.
+앞서 기술된 HPCC 선택지처럼, XSEDE는 작업을 실행하는데 스케쥴러를 사용하고, 사용자가 한번에 활용할 수 있는 자원에 
+한계를 설정해 두고 있다.
 
-XSEDE can also be a bit intimidating at first because you will need to know what resources
-you need, and for how long, before you get started. XSEDE runs like a mini version of the
-NSF grant system. In order to qualify to submit large jobs, you'll have to submit a [allocation request](https://portal.xsede.org/allocations/research), in the form of a short proposal.
-Also like an NSF grant, if your proposal is accepted, that means you have access to whatever
-resources you were approved for, for the time frame you requested.
+처음에 XSEDE는 다소 겁먹게 되는데 이유는 시작하기 전에 필요한 HPCC 자원이 무엇인지, 
+얼마나 오래 사용할 것인지에 대해 알고 있어야 된다.
+XSEDE는 NSF 보조금 시스템의 미니 버젼처럼 동작한다.
+대용량 작업을 돌리려는 자격을 획득하려면,
+짧은 제안서 형태로 [allocation request](https://portal.xsede.org/allocations/research)를 먼저 제출해야 한다.
+NSF 보조금처럼, 제안이 수리된다. 수리된 제안은 요청한 기한동안 허가받은 HPCC 자원에 접근해서 활용하게 된다는 
+의미를 갖는다.
 
-Don't let that paragraph scare you off though. XSEDE has two different allocation tracks. If
-you aren't sure exactly what you'll need for your big project, you can request a [startup allocation](https://portal.xsede.org/allocations/startup) which only requires an abstract
-rather than a proposal, and grants you a year to try out your new pipeline or analysis. These
-are usually granted in a week or so, and are intended for you to test your pipeline so you
-know what to ask for in your allocation proposal.
+앞선 문단에 너무 겁먹지는 말자. 
+XSEDE에서 두가지 자원할당 방식을 지원한다.
+초대형 프로젝트를 위해서 얼마나 자원을 사용할지 확신이 없다면,
+[startup allocation](https://portal.xsede.org/allocations/startup) 제안서를 먼저 추진한다;
+정식 제안서가 아닌 초록만 요구하는데 파이프라인 혹은 분석을 개시할 수 있도록 1년을 사용권을 부여해 준다.
+통상 일주일내에 사용권한이 부여되고 해당 기간동안 파이프라인을 테스트해서 자원할당 제안서에 얼마의 자원을 
+할당받아야하는지 파악하는데 도움을 준다.
 
-If that still sounds a little too daunting, XSEDE also has [trial allocations](https://iujetstream.atlassian.net/wiki/spaces/JWT/pages/76149919/Jetstream+Trial+Access+Allocation)
-which give you access to only a tiny fraction of XSEDES power, but are plenty large enough to
-test your code and see if a larger allocation is worth pursuing. These allocations are granted
-more or less immediately by simply filling in a form and agreeing to the usage rules.
+여전히 다소 벅차다는 생각이 든다면, 
+[trial allocations](https://iujetstream.atlassian.net/wiki/spaces/JWT/pages/76149919/Jetstream+Trial+Access+Allocation)도 고려해볼만 하다.
+trial allocations는 XSEDES의 매우 작은 일부만 접근해서 사용할 수 있게 해준다.
+하지만, 작성한 코드를 테스트하고 자원할당을 받을 필요가 있는지 점검하기에는 충분하다.
+trial allocations은 간략히 사용문서를 채워넣고 사용규칭에 동의하면 거의 즉시 사용권한이 부여된다.
 
-If you're interested in using XSEDE, check to see if your workplace has a [Campus Champion](https://www.xsede.org/community-engagement/campus-champions). These are people who
-have had extensive training on both the XSEDE system and the allocation program, and can
-help you figure out how to apply and what you need.
+XSEDE 사용에 관심이 있는 경우, [Campus Champion](https://www.xsede.org/community-engagement/campus-champions)이 
+교내에 존재하는지 찾아본다.
+사내 전문가는 XSEDE 시스템과 자원할당 프로그램 모두 교육과정을 이수한 전문가로 지원방법과 필요로 하는 것에 대해 도움을 줄 것이다.
+
 
 #### [Atmosphere](https://pods.iplantcollaborative.org/wiki/display/atmman/Getting+Started)
 
@@ -92,99 +105,103 @@ help you figure out how to apply and what you need.
 
 #### [JetStream](http://jetstream-cloud.org/)
 
-### Commercial Clouds
+### 상용 클라우드 
 
-#### [Amazon EC2 ](http://aws.amazon.com/ec2/)
+#### [아마존 AWS EC2 ](http://aws.amazon.com/ec2/)
 
-The Amazon Web Service (AWS) that you've been using is the Elastic Compute (EC2) cloud. There
-are actually lots of other cloud and storage solutions under the AWS umbrella, but when most
-data scientists say AWS, they mean [EC2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html).
-With EC2, you can rent access to a cloud computing resource as small as your laptop, or as large as a 64 processor
-machine with 488GB of memory, and with a number of different operating systems. These instances can
-be optimized for jobs that are memory intensive, or require a lot of bandwidth, or [almost any other
-specific need](https://aws.amazon.com/ec2/instance-types/). There are so many options that we can't
-cover them all here, but these are a few popular ones:
+본 워크샵에서 사용하고 있는 아마본 웹 서비스(Amazon Web Service, AWS)는 EC2(Elastic Compute)다.
+실제로 AWS 우산 아래 상당히 많은 클라우드 및 스토리지 솔류션이 존재한다.
+하지만, 데이터 과학자 대부분이 AWS라고 말할 때, [EC2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html)를 의미한다.
+EC2를 통해서 작은 노트북 컴퓨터 혹은 64 프로세서와 488 GB 메모리를 갖춘 강력한 컴퓨터를 
+서로 다른 운영체제를 엊어 빌려 사용할 수 있다.
+EC2 인스턴스는 메모리 집약에 특화되거나, 대용량 네트워크 대역폭을 갖거나,
+[거의 모든 작업유형](https://aws.amazon.com/ec2/instance-types/)에 맞춰나갈 수 있다.
+지면의 한계로 모든 선택옵션을 다루지는 못하지만, 가장 인기있는 선택사양은 다음과 같다:
 
-##### On-Demand
-All this variety and optimization makes EC2 much more expensive than an average HPCC, however,
-depending on your needs it can be [quite affordable](https://aws.amazon.com/ec2/pricing/). If
-you want to start an EC2 instance whenever you want and have instant access, you can
-rent a quite large on-demand instance with 8 processors and 32 GB of memory for ~40 cents
-an hour, and tiny instances are only about half a cent per hour.
 
-##### Spot-Instances
-If your program can tolerate pauses, and you don't need the analysis done as fast as
-possible, you can request a spot instance. Essentially, whenever Amazon has computing
-capacity that no one is paying them for, they lower the prices for renting some systems.
-If you request a spot-instance, that means you specify the size and parameters of
-your machine rental, and set a limit on how much you're willing to spend per hour. Then,
-whenever the rental rate dips below your maximum, your instance turns on and runs until
-the price goes back up. If it's not an important shopping season, and you aren't in a hurry,
-you can often run spot-instances for less than half their normal cost. 
+##### 온디멘드(On-Demand)
 
-##### Free Tier
-There are also [free options](https://aws.amazon.com/free/), which allow you to test out
-the interface and make sure it will meet your needs before you start renting.
+다양성과 최적화가 EC2를 평균적인 HPCC보다 훨씬 더 비싸게 만들었다.
+하지만, 실제 필요요건에 따라 잘 사용하면 [훨씬 적합하게](https://aws.amazon.com/ec2/pricing/) 사용할 수 있다.
+컴퓨팅 자원이 필요할 때면 언제나 EC2 인스턴스를 시작할 수 있어서 프로세서가 8개 32 GB 메모리를 단 
+대용량 인스턴스를 시간당 40센트 약 400원에 빌릴 수 있고, `tiny` 인스턴스는 시간당 1 센트 10원에 빌려 쓸 수 있다.
 
-Just remember that with EC2 and all other commercial services, you're paying for renting the computer,
-whether you're using it or not. If you leave an instance on idly for months after your pipeline has finished,
-you'll still have to pay for that time.
+##### 스팟 인스턴스(Spot-Instances)
+
+프로그램을 일시 중지해도 문제가 없는 경우, 혹은 최대한 빨리 분석을 마무리할 필요가 없는 경우,
+스팟 인스턴스를 사용할 수도 있다.
+아마존에서 컴퓨팅 자원을 아무도 돈을 내고 사용하지 않을 때마다, 
+아마존에서 일부 시스템 임대료를 낮춘다.
+스팟 인스턴스를 요청한다는 의미는, 
+임대할 컴퓨터 사양을 책정하고, 시간당 사용할 가격도 설정함을 듯한다.
+컴퓨터 임대료가 본인이 설정한 최대 임대료 밑으로 내려갈 경우, 인스턴스를 다시 가격이 올라가기
+전까지 실행할 수 있게 된다.
+아마존에 중요한 쇼핑시즌이 아니고, 급히 처리할 필요가 없는 경우,
+정찰가격 대비 절반에 미치지 못하는 가격에 스팟 인스턴서를 많이들 사용한다.
+
+##### 무료 인스턴스 (Free Tier)
+
+[무료 선택옵션](https://aws.amazon.com/free/)도 있는데, 컴퓨터 임대를 시작하기 전에 요구사항에 부합되는지 
+점검하고 인터페이스를 테스트하도록 무료로 제공된다.
+
+EC2를 비롯한 다른 상용 클라우드 서비스와 마찬가지로, 사용을 하든 사용하지 않든 컴퓨터 임대에 대해서 돈을 지불하고 있다.
+파이프라인 작업을 마친 뒤에 수개월동안 인스턴스를 그냥 내버려 두면, 해당 기간동안 당연히 돈을 지불해야 된다.
 
 #### [Google Cloud](https://cloud.google.com/): [getting started](https://cloud.google.com/compute/docs/quickstart)
 
 #### [Microsoft Azure](https://azure.microsoft.com/en-us/)
 
-## How to Choose
+## 선택방법
 
-As you can see, highly managed systems (HPCCs, XSEDE, etc) usually are free or cheap, but
-relatively inflexible. There may be certain programs you can't install, or there may be long
-wait times. Commercial systems are generally more flexible because you can make them look
-however you want, but they can be quite expensive, especially if you run for a long time, or have a
-lot of data. However, there are other things to consider.
+고도로 관리되는 시스템 (HPCCs, XSEDE, ...)은 대체로 무료거나 저렴하지만, 상대적으로 유연성이 떨어진다.
+설치되지 못하는 프로그램도 일부 있고 장기간 대기하는 경우도 있을 수 있다.
+상용 클라우드 시스템은 일반적으로 더 큰 유연성을 제공하는데 이유는 사용자가 원하는 것을 제공하지만, 
+꽤 비용이 많이 든다. 장시간 프로그램을 실행시키거나 대용량 데이터를 갖는 경우 그렇다.
+하지만, 선택시 고려할 다른 면도 있다.
 
-Another way to think about this is not *whether* you want to spend your time and money, but *where* you
-want to spend them. AWS will let you install anything you want, but that also means that you'll
-have to spend some time up-front installing programs and testing configurations. Your HPCC jobs
-might take a week to start, but you don't have to do any of the systems administration, and you
-can work on other projects while your job sits in the queue.
+고려할 다른 점은 시간과 돈을 사용할지에 대한 것 보다, 시간과 자원을 어디에 사용할지가 된다.
+AWS는 사용자가 원하는 어떤 것이든 설치할 수 있도록 하지만, 이것이 의미하는 다른 면은 
+프로그램 설치 및 환경설정(configuration) 작업에 사전에 일부 시간과 돈을 투여한다는 점이다.
+HPCC 작업을 착수하는데 일주일이 소요될 수 있지만, 시스템 관리에 대해서 아무런 작업도 필요하지 않을 수 있어,
+큐에 작업이 대기하는 동안 다른 작업을 동시 수행할 수도 있다.
 
-Your familiarity with the pipeline can also be a factor. Let's say you want to run a program
-you've never run before. If you have no way to estimate how
-long your job will take, a service like AWS might save you money, because you can run your
-program until its done, no matter how long that is. Running it on an HPCC can be really
-frustrating, because you'll need to submit your job with the amount of time and resources it will use.
-An HPCC will only let your job run the amount of time you requested, so if you underestimate the
-amount of time it will take, even by one minute, the system kills your program and you need to resubmit it.
-On the other hand, if you want to run that same program, but you can easily estimate the runtime, an
-HPCC is going to be a much cheaper choice.
+파이프라인 친숙성도 또 다른 고려요인이 된다.
+전에 한번도 돌려본 적이 없는 프로그램을 실행시킨다고 가정해보자.
+작업완료시간이 얼마나 소요될지 추정할 방도가 없는 경우 AWS 같은 서비스가 비용을 절약시킬 수도 있다.
+왜냐하면, 얼마나 오래 걸릴지 관계없이, 완료시까지 AWS에서 프로그램을 돌릴 수 있기 때문이다.
+HPCC에서 프로그램을 실행시키는 경우 정말 난감한 경우가 있다. 
+이유는 처리작업을 시간과 자원을 정해서 투여하기 때문이다. 
+HPCC는 요청한 시간동안만 자원을 할당해서 작업을 돌려준다. 
+따라서, 1분만 모자라게 작업완료시간을 과소추정해도 시스템이 프로그램 실행을 중단시켜서 다시 돌려야할 경우도 
+종종 일어난다.
+다른 한편으로, 동일한 프로그램을 실행시키지만 쉽게 실행시간을 추정하는 경우 HPCC는 훨씬 저렴한 선택지가 된다.
 
-In my work, I often use both commercial and non-commercial services. I tend to use AWS for testing,
-with small amounts of data, until I know how the program behaves. Then I port the pipeline to
-my university HPCC for running the full dataset.
+저자가 작업할 경우, 상용과 비상용 클라우드 서비스를 모두 사용한다.
+AWS에서 프로그램 동작에 대해서 충분히 파악할 때까지 소규모 데이터로 테스트 목적으로 사용한다.
+그리고 나서 파이프라인을 포팅해서 전체 데이터셋을 돌릴 때 저자가 몸담고 있는 대학 HPCC에서 돌린다.
 
-> ## Discussion
+> ## 토론
 > 
-> In small groups or on your own, plot out your next bioinformatics project. With guidance
-> from your instructors and the above references, try to determine not only what types of
-> resources you'll need, but what platform will best suit your project.
+> 소규모 그룹 혹은 본인 프로젝트를 기준으로 다음 생물정보학 프로젝트를 계획해본다.
+> 강사 안내 혹은 상기 참고서를 바탕으로 필요한 클라우드 자원 유형 뿐만 아니라,
+> 어떤 플랫폼이 해당 프로젝트에 가장 적합한지 판단해보자.
 > 
-> Some things to consider:
+> 고려할 점은 다음과 같다:
 > 
-> - How much data do you have?
-> - What computational steps will it need?
->   - What is the *largest* computational step?
->   - Can any steps be done in parallel?
-> - What is your timeframe?
-> - Who will be doing most of the computational work?
->   - What computational skills do they have?
->   - Do you need to share the data across many labs?
-> - How many times will you need to run this pipeline?
+> - 데이터가 얼마나 큰가?
+> - 요구되는 컴퓨팅 처리단계는 무엇인지? 
+>     - *가장 큰* 컴퓨팅 처리단계는 무엇인지?
+>     - 어떤 컴퓨팅 단계가 병렬로 처리되어야 하는지?
+> - 컴퓨팅 소요기간은 어떻게 되는지?
+> - 컴퓨팅 작업 대부분을 누가 담당할 것인가?
+>     - 담당자가 어떤 컴퓨팅 스킬을 갖추고 있는가?
+>     - 데이터를 연구랩실간에 공유할 필요가 있는가? 
+> - 파이프라인을 얼마나 자주 실행할 필요가 있는가?
 {: .challenge}
 
 
-### Other Resources:
+### 추가 참고자료:
 
-
-Learn more about cloud computing in bioinformatics:
+생물정보학에서 클라우드 컴퓨팅에 관해서 더 살펴보자:
 
 Fusaro VA, Patil P, Gafni E, Wall DP, Tonellato PJ (2011) **Biomedical Cloud Computing With Amazon Web Services**. PLoS Comput Biol 7(8): e1002147. doi: [10.1371/journal.pcbi.1002147](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002147)

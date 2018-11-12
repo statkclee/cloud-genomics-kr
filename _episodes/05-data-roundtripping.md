@@ -129,60 +129,54 @@ $ curl -O ftp://ftp.ensemblgenomes.org/pub/release-37/bacteria/species_EnsemblBa
 **동시에** 서버 데이터 파일과 동일한 파일명으로 다운로드해서 저장되도록 한다: `species_EnsemblBacteria.txt`
 
 
-It's important to note that both ``curl`` and ``wget`` download to the computer that the
-command line belongs to. So, if you are logged into AWS on the command line and execute
-the ``curl`` command above in the AWS terminal, the file will be downloaded to your AWS
-machine, not your local one.
+``curl``, ``wget`` 모두 명령라인(command line)이 동작하는 컴퓨터에 다운로드한다는 점이 주목한다.
+따라서, 명령라인으로 AWS에 로그인한 후에 ``curl`` 명령을 AWS 터미널에서 실행하게 되면,
+파일은 본인 로컬 컴퓨터가 아닌 AWS 컴퓨터로 다운로드된다.
 
 ``curl``, ``wget`` 프로그램 모두 해당 명령라인을 실행시킨 컴퓨터로 데이터파일을 다운로드 시킨다는 것이 중요하다.
 따라서, AWS EC 인스턴스에 명령라인으로 로그인해서 AWS 터미널에서 상기 명령어를 ``curl``로 때리게 되면, 
 AWS 컴퓨터로 파일이 다운로드 된다; 절대로 로컬 컴퓨터가 아니다. 
 
-### Moving files between your laptop and your instance
+### 노트북 컴퓨터와 AWS 인스턴스 사이 파일 이동
 
-What if the data you need is on your local computer, but you need to get it *into* the
-cloud? There are also several ways to do this, but it's *always* easier
-to start the transfer locally. **This means if you're using a transfer program, it needs to be
-installed on your local machine, not on your instance. If you're typing into a terminal,
-the terminal should not be logged into your instance, it should be showing your local computer.**
+작업할 데이터가 로컬 컴퓨터에 있지만, 클라우드 AWS로 가져갈 필요가 있다면 어떨까?
+작업방식이 몇가지 있지만, *항상* 로컬에서 전송작업을 시작하는 것이 더 쉽다.
+**파일 전송 프로그램을 사용한다면, AWS 인스턴스가 아니라, 로컬 컴퓨터에 전송프로그램이 설치되어 있어야 된다는 의미다.**
 
-These directions are platform specific so please follow the instructions for your system:
 
-**Please select the platform you wish to use for the exercises: <select id="id_platform" name="platformlist" onchange="change_content_by_platform('id_platform');return false;"><option value="aws_unix" id="id_aws_unix" selected> AWS_UNIX </option><option value="aws_win" id="id_aws_win" selected> AWS_Windows </option></select>**
+파일 작업방식은 플랫폼마다 특성을 타서, 작업자 운영체제에 따라 다음 전차를 따른다:
 
+**연습문제로 사용할 플랫폼을 선택한다: <select id="id_platform" name="platformlist" onchange="change_content_by_platform('id_platform');return false;"><option value="aws_unix" id="id_aws_unix" selected> AWS_UNIX </option><option value="aws_win" id="id_aws_win" selected> AWS_Windows </option></select>**
 
 <div id="div_aws_win" style="display:block" markdown="1">
 
+### 데이터를 가상컴퓨터에 업로드하기 
 
-### Uploading Data to your Virtual Machine
+PC를 사용한다면, *PSCP* 프로그램 사용을 추천한다. AWS EC2 인스턴스에 접속하는데 사용했던 `putty` 프로그램과 통일한 종류의 도구 프로그램이다.
 
-If you're using a PC, we recommend you use the *PSCP* program. This program is from the same suite of
-tools as the putty program we have been using to connect.
-
-1. If you haven't done so, download pscp from [http://the.earth.li/~sgtatham/putty/latest/x86/pscp.exe](http://the.earth.li/~sgtatham/putty/latest/x86/pscp.exe)
-2. Make sure the *PSCP* program is somewhere you know on your computer. In this case,
-your Downloads folder is appropriate.
-3. Open the windows [PowerShell](https://en.wikipedia.org/wiki/Windows_PowerShell);
-go to your start menu/search enter the term **'cmd'**; you will be able to start the shell
-(the shell should start from C:\Users\your-pc-username>).
-4. Change to the download directory
+1. 설치가 되어 있지 않는 경우, [http://the.earth.li/~sgtatham/putty/latest/x86/pscp.exe](http://the.earth.li/~sgtatham/putty/latest/x86/pscp.exe)을 클릭하여 `pscp`를 다운로드 받는다.
+2. *PSCP* 프로그램이 본인 컴퓨터 어느 곳에 있는지 확인한다. 보통 `다운로드`(Downloads) 폴더에 저장된다. 
+3. [PowerShell](https://en.wikipedia.org/wiki/Windows_PowerShell) 윈도우를 연다; 시작 메뉴 / 검색으로 가서 **'cmd'** 을 타이핑하고 엔터를 친다. 쉘이 시작된다. (쉘은 `C:\Users\your-pc-username>`에서 프롬프트를 깜빡이며 대기하고 있다.)
+4. `다운로드`(Downloads) 폴더로 이동한다.
 
 ~~~
 > cd Downloads
 ~~~
 {: .bash}
 
-5. Locate a file on your computer that you wish to upload (be sure you know the path). Then upload it to your remote machine (**you will need to know your ip address, and login credentials**). You will be prompted to enter a password, and then your upload will begin. **(make sure you use substitute 'your-pc-username' for your actual pc username)**
+업로드할 파일을 특정하여 위치시킨다.(더불어 업로드할 파일 경로를 확인한다)
+그리고 나서 원격 컴퓨터에 파일을 업로드시킨다.(**ip주소, 로그인 자격증명(credential)**을 알고 있어야 한다.**)
+비밀번호를 입력하고 나면 파일 업로드 작업이 개시된다.
 
 ~~~
 C:\User\your-pc-username\Downloads> pscp.exe local_file.txt dcuser@ip.address:/home/dcuser/
 ~~~
 {: .bash}
 
-### Downloading Data from your Virtual Machine
+### 가상 컴퓨터에서 데이터 다운로드 받기 
 
-1. Follow the instructions in the Upload section to download (if needed) and access the *PSCP* program (steps 1-3)
-2. Download the zipped fastqc report using the following command **(make sure you use substitute 'your-pc-username' for your actual pc username and dcuser@ ip.address with your remote login credentials)**
+1. 먼저 파일 업로드 절차를 따른다. *PSCP* 프로그램을 설치해서 다운로드 받는다.(1-3 단계)
+2. 다음 명령어를 사용해서 보고서를 압축한 `SRR097977_fastqc.zip` 파일을 다운로드 받는다. **('your-pc-username'을 본인 PC 사용자명으로 바꾸고, `dcuser@ ip.address`도 원격 로그인 자격증명(credential)로 바꾼다.)**
 
 ~~~
 C:\User\your-pc-username\Downloads> pscp.exe dcuser@ip.address:/home/dcuser/dc_workshop/results/fastqc_untrimmed_reads/SRR097977_fastqc.zip C:\User\your-pc-username\Downloads
@@ -191,50 +185,48 @@ C:\User\your-pc-username\Downloads> pscp.exe dcuser@ip.address:/home/dcuser/dc_w
 
 </div>
 
-
-
 <div id="div_aws_unix" style="display:block" markdown="1">
 
-### scp
+### `scp`
 
-`scp` stands for 'secure copy protocol', and is a widely used UNIX tool for moving files
-between computers. The simplest way to use `scp` is to run it in your local terminal,
-and use it to copy a single file:
+`scp`는 'secure copy protocol'의 약자로 컴퓨터간에 파일을 이동하는데 폭넓게 사용되는 유닉스 도구다.
+'scp'를 사용하는 가장 간단한 방식은 로컬 터미널에서 실행시키고 파일을 복사하는데 사용하는 것이다:
 
 ~~~
 scp <file I want to move> <where I want to move it>
 ~~~
 {: .bash}
 
-Note that you are always running `scp` locally, but that *doesn't* mean that
-you can only move files from your local computer. A command like:
+로컬 컴퓨터에서 `scp`를 항상 실행하는 것에 주목한다.
+그렇다고 해서, 로컬 컴퓨터에서 파일만 이동할 수 있다는 것은 아니다. 다음 명령어처럼:
 
 ~~~
-$ scp <local file> <AWS instance>
-~~~
-{: .bash}
-
-To move it back, you just re-order the to and from fields:
-
-~~~
-$ scp <AWS instance> <local file>
+$ scp <로컬 파일> <AWS 인스턴스>
 ~~~
 {: .bash}
 
-### Uploading Data to your Virtual Machine
+역으로 이동시키려면, `to`와 `from` 순서를 바꾸면 된다:
 
-1. Open the terminal and use the `scp` command to upload a file (e.g. local_file.txt) to the dcuser home directory:
+~~~
+$ scp <AWS 인스턴스> <로컬 파일>
+~~~
+{: .bash}
+
+### 파일을 가상 컴퓨터에 업로드
+
+1. 터미널을 열고 `scp` 명령어를 사용해서 파일(`local_file.txt`)을 `dcuser` home 디렉토리로 업로드한다:
 
 ~~~
 $  scp local_file.txt dcuser@ip.address:/home/dcuser/
 ~~~
 {: .bash}
 
-### Downloading Data from your Virtual Machine
+### 가상 컴퓨터에서 데이터 다운로드
 
-Let's download a zipped file from our remote machine.  You should have a fastqc report in ~/dc_workshop/results/fastqc_untrimmed_reads/SRR097977_fastqc.zip
+원격 컴퓨터에서 압축 파일을 다운로드하자. 
+먼저 원격 컴퓨터에 `~/dc_workshop/results/fastqc_untrimmed_reads/SRR097977_fastqc.zip` 리포트 파일이 있어야 한다.
 
-**Tip:** If you are looking for another (or any really) zip file in your home directory to use instead try
+**Tip:** home 디렉토리에서 다른 압축파일(zip)을 찾고자 한다면, 다음 명령어를 사용한다:
 
 ~~~
 $ find ~ -name *.zip
@@ -242,12 +234,17 @@ $ find ~ -name *.zip
 {: .bash}
 
 
-1. Download the fastqc report in ~/dc_workshop/results/fastqc_untrimmed_reads/SRR097977_fastqc.zip to your home ~/Dowload directory using the following command **(make sure you use substitute dcuser@ ip.address with your remote login credentials)**:
+1. `~/dc_workshop/results/fastqc_untrimmed_reads/SRR097977_fastqc.zip` 압축 리포트 파일을 
+로컬 컴퓨터 `~/Downloads` 디렉토리에 다음 명령어로 다운로드 받는다.
+**(`dcuser@ ip.address`를 원격 로그인 자격증명(credentials)로 바꾼다)**:
+
 
 ~~~
 $ scp dcuser@ip.address:/home/dcuser/dc_workshop/results/fastqc_untrimmed_reads/SRR097977_fastqc.zip ~/Downloads
 ~~~
 {: .bash}
 
-Remember that in both instances, the command is run from your local machine, we've just flipped the order of the to and from parts of the command.
+상기 명령어는 작업자 본인 로컬 컴퓨터에서 실행되는 것을 기억한다.
+명령어의 `from`, `to` 순서를 뒤바꿨을 뿐이다.
+
 </div>
